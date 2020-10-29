@@ -1,0 +1,26 @@
+.card__card{
+    cursor: pointer;
+    border-radius: 6px;
+}
+.card__img{
+    height: 100%;
+    object-fit: contain;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.card__card:hover{
+    transform: scale(1.07, 1.07);
+    box-shadow: -3px 3px 3px rgba(0,0,0,0.3);
+}
+
+.card__btn{
+    display: block;
+    border-radius: 5px;
+}
+
+@media screen and (max-width:620px){
+    .card__img{
+        height: 200px;
+        object-fit: contain;
+    }
+}

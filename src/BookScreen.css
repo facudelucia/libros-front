@@ -1,0 +1,19 @@
+.bookScreen__card{
+    border-radius: 14px;
+}
+.bookScreen__img{
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+.bookScreen__btn{
+    display: block;
+    border-radius: 5px;
+    margin: 20px;
+}
+@media screen and (max-width:620px){
+    .bookScreen__img{
+        border-top-left-radius: 14px;
+        border-top-right-radius: 14px;
+        border-bottom-left-radius: 0px;
+    }
+}
