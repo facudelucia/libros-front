@@ -4,7 +4,6 @@ export const initialState = {
     authorState: null,
     searchBook: null,
     bookId: null,
-    token: localStorage.getItem("token")
 }
 
 
@@ -43,22 +42,6 @@ const reducer = (state, action) => {
                 bookId: action.bookId,
                 authorState: null,
                 searchBook: null
-            }
-        case "GET_TOKEN":
-            localStorage.setItem("token", action.token)
-            return {
-                ...state,
-                token: action.token
-            }
-        case "LOGOUT":
-            localStorage.removeItem("token")
-            return {
-                ...state,
-                books: [],
-                authorState: null,
-                searchBook: null,
-                bookId: null,
-                token: null
             }
         default:
             return state

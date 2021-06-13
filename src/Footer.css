@@ -1,28 +1,28 @@
 .footer{
-    height: 10%;
-    width: 100%;
-    background: white;
-    
-    
-  }
+  width: 100%;
+  background: white;
+  bottom: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.footer a{
+  text-decoration: none;
+  color: indigo;
+}
+.footer .icon{
+  color: black;
+  text-decoration: none;
+  font-size: 32px;
+  margin: 0 5px;
+}
+.footer .icon:hover{
+  transform: scale(1.2, 1.2);
+}
+@media screen and (max-width:768px){
   .footer a{
-    text-decoration: none;
-    color: indigo;
+    font-size: 20px;
   }
-  .footer .icon{
-    color: black;
-    text-decoration: none;
-    font-size: 32px;
-  }
-  
-  .icon{
-    margin-right: 5px;
-  }
-  .footer .icon:hover{
-    transform: scale(1.2, 1.2);
-  }
-  @media screen and (max-width:768px){
-    .footer a{
-      font-size: 20px;
-    }
-  }
+}

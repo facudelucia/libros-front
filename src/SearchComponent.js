@@ -1,48 +1,50 @@
-import React,{useState} from 'react'
-import { useStateValue } from './StateProvider';
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
+
 function SearchComponent() {
-    const[{searchBook}, dispatch]= useStateValue()
+    const history = useHistory()
+
     const [form, setForm] = useState({
-        search:""
+        busqueda: ""
     })
-    const {search} = form
+
+    const { busqueda } = form
+
     const handleInputChange = (e) => {
         setForm({
             ...form,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(search.trim()=== ""){
+        if (busqueda.trim() === "") {
             return
         }
-        
-        dispatch({
-            type:"SEARCH_BOOK",
-            searchBook: search.toUpperCase()
-        })
+        history.push(`/search/${busqueda}`)
         setForm({
-            search:""
+            busqueda: ""
         })
     }
+    
     return (
         <div>
-            <form 
-                class="form-inline my-2 my-lg-0"
+            <form
+                className="form-inline my-2 my-lg-0"
                 onSubmit={handleSubmit}
             >
-                <input 
-                    class="form-control mr-sm-2" 
-                    type="text" 
-                    placeholder="Busca por nombre..." 
-                    aria-label="Search" 
-                    name="search"
-                    value={search}
+                <input
+                    className="form-control mr-sm-2"
+                    type="text"
+                    placeholder="Busca por nombre..."
+                    aria-label="Search"
+                    name="busqueda"
+                    value={busqueda}
                     onChange={handleInputChange}
-                    />
-                <button 
-                    class="btn btn-outline-success my-2 my-sm-0" 
+                />
+                <button
+                    className="btn btn-outline-success my-2 my-sm-0"
                     type="submit"
                 >Buscar</button>
             </form>

@@ -1,44 +1,36 @@
-import React, { useMemo } from 'react';
-import BookScreen from './BookScreen';
+import React, { useEffect, useState } from 'react';
 import Card from './Card';
+import Pagination from './Pagination'
 import { useStateValue } from './StateProvider';
 import "./BookList.css"
-const BookList = ({ booksPaginate, id, author, title, books }) => {
-    const [{ authorState, searchBook, bookId }, dispatch] = useStateValue()
-    const getBookByAuthor = (author) => {
-        return (
-            books.filter(book => book.author === author)
-        );
+import Axios from 'axios';
+const BookList = () => {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [booksPerPage] = useState(9)
+    const [{ books }, dispatch] = useStateValue()
+    const indexOfLastBook = currentPage * booksPerPage
+    const indexOfFirstBook = indexOfLastBook - booksPerPage
+    const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook)
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber)
     }
-    const getBookByTitle = (title) => {
-        return books.filter(book => book.title.toUpperCase().includes(title))
+    useEffect(() => {
+        const getBooks = async () => {
+            await Axios.get("./data.json")
+                .then(datos => {
+                    dispatch({
+                        type: "GET_BOOKS",
+                        books: datos.data
+                    })
+                })
+        }
+        getBooks()
+    }, [])
 
-    }
-    const getBookById = (id) => {
-        return (
-            books.find(book => book._id === id)
-        );
-    }
-    const booksMemo = useMemo(() => getBookByAuthor(author), [author]);
-    const booksFiltered = useMemo(() => getBookByTitle(title), [title])
-    const selectedBook = useMemo(() => getBookById(id), [id]);
-  if (bookId) {
-        return (
-            <BookScreen
-                id={selectedBook._id}
-                key={selectedBook._id}
-                title={selectedBook.title}
-                author={selectedBook.author}
-                description={selectedBook.description}
-                img={selectedBook.image}
-                link={selectedBook.downloadLink}
-            />
-        )
-    }
-    if (authorState) {
-        return (
+    return (
+        <>
             <div className="card-columns">
-                {booksMemo.map(book => (
+                {currentBooks.map(book => (
                     <Card
                         id={book._id}
                         key={book._id}
@@ -50,46 +42,11 @@ const BookList = ({ booksPaginate, id, author, title, books }) => {
                     />
                 ))}
             </div>
-        )
-    }
-    if (searchBook && booksFiltered.length === 0) {
-        return (
-            <div className="alert alert-danger">No existen libros con ese nombre</div>)
-    }
-    if (searchBook) {
-        return (
-            <div className="card-columns">
-                {booksFiltered.map(book => (
-                    <Card
-                        id={book._id}
-                        key={book._id}
-                        title={book.title}
-                        author={book.author}
-                        description={book.description}
-                        img={book.image}
-                        link={book.downloadLink}
-                    />
-                ))}
-            </div>
-        )
-    }
-    if (!searchBook && !authorState && !bookId) {
-        return (
-            <div className="card-columns">
-                {booksPaginate.map(book => (
-                    <Card
-                        id={book._id}
-                        key={book._id}
-                        title={book.title}
-                        author={book.author}
-                        description={book.description}
-                        img={book.image}
-                        link={book.downloadLink}
-                    />
-                ))}
-            </div>
-        )
-    }
+            <Pagination booksPerPage={booksPerPage} totalBooks={books.length} paginate={paginate} />
+        </>
+
+    )
+
 
 }
 

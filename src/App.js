@@ -1,27 +1,28 @@
 import React from 'react'
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
-  } from "react-router-dom";
-import Admin from './Admin';
-import FormEditBook from './FormEditBook';
-import Home from './Home';
-import Login from './Login';
-import AddBook from "./AddBook"
+    Redirect
+} from "react-router-dom";
+import BookScreen from './BookScreen';
+import Header from './Header'
+import Footer from './Footer'
+import BookSearching from './BookSearching';
+import BookList from './BookList';
 function App() {
     return (
-        <div>
-            <Router>
+        <>
+            <Header />
+            <div className="home">
                 <Switch>
-                    <Route exact path="/" component={Home}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/admin" component={Admin} />
-                    <Route exact path="/editbook" component={FormEditBook} />
-                    <Route exact path="/addbook" component={AddBook} />
+                    <Route exact path="/home" component={BookList} />
+                    <Route exact path="/book/:id" component={BookScreen} />
+                    <Route exact path="/search/:busqueda" component={BookSearching} />
+                    <Redirect to="/home" />
                 </Switch>
-            </Router>
-        </div>
+            </div>
+            <Footer />
+        </>
     )
 }
 

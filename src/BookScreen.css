@@ -2,8 +2,7 @@
     border-radius: 14px;
 }
 .bookScreen__img{
-    border-top-left-radius: 14px;
-    border-bottom-left-radius: 14px;
+   border-radius: 14px;
 }
 .bookScreen__btn{
     display: block;

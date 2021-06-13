@@ -11,3 +11,11 @@
 .navbar{
     position: relative;
 }
+
+.dropdown-menu.show{
+display: flex;
+flex-direction: row;
+}
+.dropdown-menu.show div{
+    flex: 0 1 50%;
+}
